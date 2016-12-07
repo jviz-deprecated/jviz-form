@@ -1,0 +1,49 @@
+//Import jviz dependencies
+@import "{JVIZ_MODULES}jviz/scss/all";
+
+//Import mixins
+@import "_group.scss";
+@import "_title.scss";
+
+//Form element
+.jviz-modules-form, .jviz-form
+{
+  //Display
+	display: block; width: calc(100% - 20px); vertical-align: top;
+
+  //Text
+	@include jviz-font; font-size: 14px; color: $jviz-navy;
+
+  //Border
+	border-radius: 5px;
+
+	//Padding
+	padding: { top: 10px; bottom: 10px; left: 10px; right: 10px; }
+
+	//Margin
+	margin: { top: 0px; bottom: 10px; left: auto; right: auto; }
+
+  //Title
+  &-title { @include jviz-form-title; }
+
+  //Form input
+  &-input { @include jviz-input; @include jviz-input-fluid; }
+
+  //Rule
+  &-hr, &-rule { @include jviz-form-rule; }
+
+  //Group style
+  &-group { @include jviz-form-group; }
+
+  //White background form
+  &--white { background-color: $jviz-white; }
+
+  //Input styles
+  &--white &-input { background-color: $jviz-grey-4; }
+
+  //Grey background
+  &--grey { background-color: $jviz-grey-4; }
+
+  //Input background color
+  &--grey &-input { background-color: $jviz-white; }
+}
