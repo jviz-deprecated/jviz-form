@@ -1,0 +1,12 @@
+//Form detail mixin
+@mixin jviz-form-detail
+{
+  //Display
+  display: block;
+
+  //Text
+  @include jviz-font; font-size: 15px; color: $jviz-navy; text-decoration: none;
+
+  //Margin
+  margin: { top: 0px; bottom: 16px; left: 0px; right: 0px; }
+}
