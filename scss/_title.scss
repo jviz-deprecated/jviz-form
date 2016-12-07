@@ -1,0 +1,12 @@
+//Form title
+@mixin jviz-form-title
+{
+  //Display
+  display: block;
+
+  //Text style
+  @include jviz-font; font-size: 14px; color: $jviz-navy; text-decoration: none; font-weight: bold;
+
+  //Margin
+  margin: { left: 0px; right: 0px; top: 0px; bottom: 8px; } 
+}
