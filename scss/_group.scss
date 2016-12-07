@@ -14,7 +14,7 @@
   &--20px { margin-bottom: 20px !important; }
 
   //Title
-  &-title { @include jviz-font; font-size: 14px; font-weight: bold; display: block; margin-bottom: 5px; }
+  &-title { @include jviz-font; font-size: 15px; font-weight: bold; display: block; margin-bottom: 5px; }
 
   //Detail
   &-detail { @include jviz-font; font-size: 14px; display: block; margin-bottom: 5px; }
