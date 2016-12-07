@@ -2,10 +2,7 @@
 @import "{JVIZ_MODULES}jviz/scss/all";
 
 //Import mixins
-@import "_detail.scss";
-@import "_group.scss";
-@import "_title.scss";
-@import "_rule.scss";
+@import "_all.scss";
 
 //Form element
 .jviz-modules-form, .jviz-form
@@ -29,7 +26,7 @@
   &-title { @include jviz-form-title; }
 
   //Detail
-  &-detail { @include jviz-form-detail; } 
+  &-detail { @include jviz-form-detail; }
 
   //Form input
   &-input { @include jviz-input; @include jviz-input-fluid; }
