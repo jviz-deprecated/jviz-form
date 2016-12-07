@@ -1,0 +1,15 @@
+//Rule mixin
+@mixin jviz-form-rule
+{
+  //Display
+  display: block;
+
+  //Size
+  width: 100%; height: 0px;
+
+  //Border
+  border-bottom: 1px solid $jviz-navy-4;
+
+  //Margin
+  margin: { top: 0px; bottom: 10px; left: 0px; right: 0px; }
+}
