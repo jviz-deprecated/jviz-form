@@ -75,7 +75,7 @@ var jviz_checkbox = { is: 'jviz-checkbox' };
 
 //Checkbox properties
 jviz_checkbox.properties = {};
-jviz_checkbox.properties.checked = { type: Boolean, reflectToAttribute: true, observer: '_update_checked' };
+jviz_checkbox.properties.checkboxChecked = { type: Boolean, reflectToAttribute: true, observer: '_update_checked' };
 
 //Checkbox is ready
 jviz_checkbox.ready = function()
@@ -88,10 +88,10 @@ jviz_checkbox.ready = function()
 jviz_checkbox.on = function(name, listener){ return this._events.add(name, listener); };
 
 //Check if checkbox is checked
-jviz_checkbox.is_checked = function(){ return this.checked; };
+jviz_checkbox.is_checked = function(){ return this.checkboxChecked; };
 
 //Get the checked value
-jviz_checkbox.get_checked = function(){ return this.checked; };
+jviz_checkbox.get_checked = function(){ return this.checkboxChecked; };
 
 //Set if is checked
 jviz_checkbox.set_checked = function(value)
@@ -100,7 +100,7 @@ jviz_checkbox.set_checked = function(value)
   if(typeof value !== 'boolean'){ return; }
 
   //Update the checked value
-  this.checked = value;
+  this.checkboxChecked = value;
 };
 
 //Update the checked value
@@ -113,7 +113,7 @@ jviz_checkbox._update_checked = function(value)
 //Toggle the checked
 jviz_checkbox.toggle = function()
 {
-  this.checked = (this.checked === true) ? false : true;
+  this.checkboxChecked = (this.checkboxChecked === true) ? false : true;
 };
 
 //Register the checkbox element
