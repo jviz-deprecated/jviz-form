@@ -1,0 +1,122 @@
+<!--
+@license
+Copyright (c) 2016 The Jviz Project Authors. All rights reserved.
+The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob/dev/LICENSE
+-->
+
+<!-- Import dependencies -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../jviz/jviz.html">
+<link rel="import" href="../jviz-styles/jviz-styles.html">
+
+<!-- Checkbox element -->
+<dom-module id="jviz-checkbox">
+  <template>
+    <style>
+      /* Checkbox style */
+      :host .checkbox
+      {
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 2px;
+        width: 16px;
+        height: 16px;
+        background-color: var(--jviz-navy-4);
+        position: relative;
+      }
+
+      /* Checkbox hover */
+      :host .checkbox:hover
+      {
+        opacity: 0.8;
+      }
+
+      /* Tick style */
+      :host .checkbox:after
+      {
+        opacity: 0.2;
+        content: '';
+        transform: rotate(-45deg);
+        transition: all 0.3s;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 8px;
+        height: 4px;
+        background: transparent;
+        border: 2px solid var(--jviz-grey-2);
+        border-top: none;
+        border-right: none;
+      }
+
+      /* Checked -> change tick */
+      :host[checked] .checkbox:after
+      {
+        opacity: 1;
+        border-color: var(--jviz-white);
+      }
+
+      /* Checked -> change background */
+      :host[checked] .checkbox
+      {
+        background-color: var(--jviz-green);
+      }
+
+    </style>
+    <div id="checkbox" class="checkbox" on-tap="toggle"></div>
+  </template>
+</dom-module>
+
+<!-- Checkbox logic -->
+<script>
+
+//Initialize the checkbox element
+var jviz_checkbox = { is: 'jviz-checkbox' };
+
+//Checkbox properties
+jviz_checkbox.properties = {};
+jviz_checkbox.properties.checked = { type: Boolean, reflectToAttribute: true, observer: '_update_checked' };
+
+//Checkbox is ready
+jviz_checkbox.ready = function()
+{
+  //Initialize the events
+  this._events = new jviz.commons.events();
+};
+
+//Register an event
+jviz_checkbox.on = function(name, listener){ return this._events.add(name, listener); };
+
+//Check if checkbox is checked
+jviz_checkbox.is_checked = function(){ return this.checked; };
+
+//Get the checked value
+jviz_checkbox.get_checked = function(){ return this.checked; };
+
+//Set if is checked
+jviz_checkbox.set_checked = function(value)
+{
+  //Check if is a boolean
+  if(typeof value !== 'boolean'){ return; }
+
+  //Update the checked value
+  this.checked = value;
+};
+
+//Update the checked value
+jviz_checkbox._update_checked = function(value)
+{
+  //Emit the change event
+  this._events.emit('change', value);
+};
+
+//Toggle the checked
+jviz_checkbox.toggle = function()
+{
+  this.checked = (this.checked === true) ? false : true;
+};
+
+//Register the checkbox element
+Polymer(jviz_checkbox);
+
+</script>
