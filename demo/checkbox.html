@@ -1,0 +1,27 @@
+<!--
+@license
+Copyright (c) 2016 The Jviz Project Authors. All rights reserved.
+The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob/dev/LICENSE
+-->
+
+<!-- Import checkbox example -->
+<link rel="import" href="../jviz-checkbox.html">
+
+<!-- Test checkbox -->
+<jviz-checkbox id="test"></jviz-checkbox>
+
+<!-- Script -->
+<script>
+
+  //Checkbox element
+  var el = null;
+
+  jviz.dom.ready(function()
+  {
+    //Initialize the checkbox element
+    el = jviz.dom.id('test');
+
+    //Register the event
+    el.on('change', function(value){ console.log('Checkbox change to: ' + value); });
+  });
+</script>
