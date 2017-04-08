@@ -22,6 +22,6 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     el = jviz.dom.id('test');
 
     //Register the event
-    el.on('change', function(value){ console.log('Checkbox change to: ' + value); });
+    el.addEventListener('change', function(e){ console.log('Checkbox change to: ' + e.detail.checked); });
   });
 </script>
