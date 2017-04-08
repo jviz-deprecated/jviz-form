@@ -50,14 +50,14 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
       }
 
       /* Checked -> change tick */
-      :host[checkbox-checked] .checkbox:after
+      :host[checked] .checkbox:after
       {
         opacity: 1;
         border-color: var(--jviz-white);
       }
 
       /* Checked -> change background */
-      :host[checkbox-checked] .checkbox
+      :host[checked] .checkbox
       {
         background-color: var(--jviz-green);
       }
@@ -75,45 +75,19 @@ var jviz_checkbox = { is: 'jviz-checkbox' };
 
 //Checkbox properties
 jviz_checkbox.properties = {};
-jviz_checkbox.properties.checkboxChecked = { type: Boolean, reflectToAttribute: true, observer: '_update_checked' };
-
-//Checkbox is ready
-jviz_checkbox.ready = function()
-{
-  //Initialize the events
-  this._events = new jviz.commons.events();
-};
-
-//Register an event
-jviz_checkbox.on = function(name, listener){ return this._events.add(name, listener); };
-
-//Check if checkbox is checked
-jviz_checkbox.is_checked = function(){ return this.checkboxChecked; };
-
-//Get the checked value
-jviz_checkbox.get_checked = function(){ return this.checkboxChecked; };
-
-//Set if is checked
-jviz_checkbox.set_checked = function(value)
-{
-  //Check if is a boolean
-  if(typeof value !== 'boolean'){ return; }
-
-  //Update the checked value
-  this.checkboxChecked = value;
-};
+jviz_checkbox.properties.checked = { type: Boolean, reflectToAttribute: true, observer: '_update_checked' };
 
 //Update the checked value
 jviz_checkbox._update_checked = function(value)
 {
   //Emit the change event
-  this._events.emit('change', value);
+  this.fire('change', { checked: value });
 };
 
 //Toggle the checked
 jviz_checkbox.toggle = function()
 {
-  this.checkboxChecked = (this.checkboxChecked === true) ? false : true;
+  this.checked = !this.checked;
 };
 
 //Register the checkbox element
