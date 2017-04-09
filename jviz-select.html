@@ -1,0 +1,49 @@
+<!--
+@license
+Copyright (c) 2016 The Jviz Project Authors. All rights reserved.
+The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob/dev/LICENSE
+-->
+
+<!-- Import elements -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../jviz/jviz.html">
+<link rel="import" href="../jviz-styles/jviz-styles.html">
+
+<!-- Import elements -->
+<link rel="import" href="./jviz-select-option.html">
+
+<!-- Select element -->
+<dom-module id="jviz-select">
+  <template>
+    <style>
+      /* Host variables */
+      :host
+      {
+        --jviz-select-width: 0px;
+        --jviz-select-color-background: var(--jviz-color-navy);
+        --jviz-select-color-text: var(--jviz-color-navy-over);
+      }
+    </style>
+
+    <!-- Options wrapper -->
+    <div id="options" class="options">
+      <content select="jviz-select-options"></content>
+    </div>
+
+  </template>
+</dom-module>
+
+<!-- Select logic -->
+<script>
+  //Initialize the select object
+  var jviz_select = { is: 'jviz-select' };
+
+  //Select properties
+  jviz_select.properties = {};
+  jviz_select.properties.color = { type: String, reflectToAttribute: true, observer: '_update_color' };
+  jviz_select.properties.width = { type: String, reflectToAttribute: true, observer: '_update_width' };
+  jviz_select.properties.value = { type: String, observer: '_update_value' };
+
+  //Register the select element
+  Polymer(jviz_select);
+</script>
