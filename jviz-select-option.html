@@ -16,16 +16,43 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
       /* Host style */
       :host
       {
+        display: block;
+        @apply(--jviz-font);
+        font-size: 14px;
+        font-weight: bold;
+        width: calc(100% - 10px);
+        height: 29px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom: 1px solid var(--jviz-grey-4);
+        line-height: 29px;
+        transition: opacity 0.3s;
+        cursor: pointer;
+      }
+
+      /* Host hover */
+      :host:hover { opacity: 0.5; };
+
+      /* Host last child */
+      :host:last-of-type
+      {
+        border-bottom: 1px solid transparent;
       }
     </style>
-
+    {{ text }}
   </template>
 </dom-module>
 
 <!-- Select logic -->
 <script>
-  //Initialize the select object
+  //Initialize the select option object
   var jviz_select_option = { is: 'jviz-select-option' };
+
+  //Select option properties
+  jviz_select_option.properties = {};
+  jviz_select_option.properties.value = { type: String, reflectToAttribute: true, value: '' };
+  jviz_select_option.properties.text = { type: String, reflectToAttributE: true, value: '' };
+  jviz_select_option.properties.selected = { type: Boolean, reflectToAttribute: true };
 
   //Register the select option element
   Polymer(jviz_select_option);
