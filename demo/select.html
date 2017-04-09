@@ -1,0 +1,29 @@
+<!--
+@license
+Copyright (c) 2016 The Jviz Project Authors. All rights reserved.
+The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob/dev/LICENSE
+-->
+
+<!-- Import select element -->
+<link rel="import" href="../jviz-select.html">
+
+<!-- Test select -->
+<jviz-select id="test">
+  <jviz-select-option value="value1">Value 1</jviz-select-option>
+  <jviz-select-option value="value2">Value 2</jviz-select-option>
+</jviz-select>
+
+<!-- Script -->
+<script>
+  //Select element
+  var el = null;
+
+  jviz.dom.ready(function()
+  {
+    //Initialize the select element
+    el = jviz.dom.id('test');
+
+    //Register the event
+    el.addEventListener('change', function(e){ console.log(e); });
+  });
+</script>
