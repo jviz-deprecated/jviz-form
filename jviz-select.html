@@ -8,6 +8,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../jviz/jviz.html">
 <link rel="import" href="../jviz-styles/jviz-styles.html">
+<link rel="import" href="../jviz-icons/jviz-icons.html">
 
 <!-- Import elements -->
 <link rel="import" href="./jviz-select-option.html">
@@ -20,16 +21,70 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
       :host
       {
         --jviz-select-width: 0px;
-        --jviz-select-color-background: var(--jviz-color-navy);
-        --jviz-select-color-text: var(--jviz-color-navy-over);
+        --jviz-select-color-background: var(--jviz-navy);
+        --jviz-select-color-text: var(--jviz-navy-over);
+        position: relative;
+      }
+
+      /* Select style */
+      :host .select
+      {
+        display: inline-block;
+        width: calc(20px + var(--jviz-select-width));
+        height: 20px;
+        position: relative;
+        line-height: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 5px;
+        color: var(--jviz-select-color-text) !important;
+        background-color: var(--jviz-select-color-background);
+        cursor: pointer;
+      }
+
+      /* Select text */
+      :host .select .text
+      {
+        display: inline-block;
+        float: right;
+        text-decoration: none;
+        font-family: var(--jviz-font-family);
+        font-size: 14px;
+        font-weight: bold;
+        padding-left: 5px;
+        width: calc(var(--jviz-select-width) - 5px);
+      }
+
+      /* Options list */
+      :host .options
+      {
+        display: none;
+        position: absolute;
+        top: 22px;
+        left: 0px;
+        color: var(--jviz-select-color-text) !important;
+        background-color: var(--jviz-select-color-background) !important;
+      }
+
+      /* Select is visible */
+      :host[visible] .options
+      {
+        display: block;
       }
     </style>
-
+    <!-- Select element -->
+    <div id="select" class="select" on-tap="toggle">
+      <!-- Icon -->
+      <jviz-icons icon="chevron_down" color$="{{ color }}" size="20px" reflect></jviz-icons>
+      <!-- Text value -->
+      <div class="text">{{ text }}</div>
+    </div>
     <!-- Options wrapper -->
     <div id="options" class="options">
-      <content select="jviz-select-options"></content>
+      <content select="jviz-select-option"></content>
     </div>
-
   </template>
 </dom-module>
 
@@ -40,9 +95,96 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
 
   //Select properties
   jviz_select.properties = {};
-  jviz_select.properties.color = { type: String, reflectToAttribute: true, observer: '_update_color' };
-  jviz_select.properties.width = { type: String, reflectToAttribute: true, observer: '_update_width' };
-  jviz_select.properties.value = { type: String, observer: '_update_value' };
+  jviz_select.properties.color = { type: String, reflectToAttribute: true, observer: '_update_color', value: 'navy' };
+  jviz_select.properties.width = { type: String, reflectToAttribute: true, observer: '_update_width', value: '50px' };
+  jviz_select.properties.maxOptions = { type: Number, reflectToAttribute: true, value: 5 };
+  jviz_select.properties.value = { type: String, observer: '_update_value', value: '' };
+  jviz_select.properties.text = { type: String, value: '' };
+  jviz_select.properties.visible = { type: Boolean, reflectToAttribute: true, value: false };
+
+  //Attached event
+  jviz_select.attached = function()
+  {
+    //Get this
+    var self = this;
+
+    //Get all the options
+    this.$.options.querySelectorAll('jviz-select-option').forEach(function(el)
+    {
+      //Add the event listener
+      el.addEventListener('mousedown', function(){ return self._option(el); });
+    });
+  };
+
+  //Open-close the options
+  jviz_select.toggle = function()
+  {
+    //Show/Hide the options
+    this.visible = !this.visible;
+  };
+
+  //Update the select color
+  jviz_select._update_color = function(value)
+  {
+    //Update the button background color
+    this.customStyle['--jviz-select-color-background'] = 'var(--jviz-' + value + ')';
+
+    //Update the button text color
+    this.customStyle['--jviz-select-color-text'] = 'var(--jviz-' + value + '-over)';
+
+    //Update the styles
+    this.updateStyles();
+  };
+
+  //Update the select value
+  jviz_select._update_value = function(value)
+  {
+    //Save this
+    var self = this;
+
+    //Get the options list
+    this.$.options.querySelectorAll('jviz-select-option').forEach(function(el)
+    {
+      //check if the value attribute exists
+      if(el.value === null){ return true; }
+
+      //Check if the value is the same
+      if(el.value !== value){ return true; }
+
+      //Update the select text
+      self.text = el.text;
+
+      //Exit
+      return false;
+    });
+  };
+
+  //Update the select width
+  jviz_select._update_width = function(value)
+  {
+    //Add the width value
+    this.customStyle['--jviz-select-width'] = value.replace('px', '').replace('%', '') + 'px';
+
+    //Update the styles
+    this.updateStyles();
+  };
+
+  //Clicked on a option
+  jviz_select._option = function(el)
+  {
+    //Check the value
+    if(this.value !== el.value)
+    {
+      //Update the select value
+      this.value = el.value;
+
+      //Fire the change event
+      this.fire('change', { value: this.value }, {});
+    }
+
+    //Hide the options list
+    this.toggle();
+  };
 
   //Register the select element
   Polymer(jviz_select);
