@@ -9,6 +9,10 @@
     "jviz-styles": "https://github.com/jviz/jviz-styles.git#dev",
     "jviz-icons": "https://github.com/jviz/jviz-icons.git#dev"
   },
+  "devDependencies":
+  {
+    "web-component-tester": "Polymer/web-component-tester#^5.0.1"
+  },
   "license": "MIT",
   "authors": [ "Josemi Juanes <josemijuanes@gmail.com>" ],
   "keywords": [ "jviz", "webcomponents", "jviz-components", "form", "forms", "form-elements" ]
