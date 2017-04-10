@@ -21,6 +21,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
       :host
       {
         --jviz-select-width: 0px;
+        --jviz-select-height: 0px;
         --jviz-select-color-background: var(--jviz-navy);
         --jviz-select-color-text: var(--jviz-navy-over);
         position: relative;
@@ -44,6 +45,13 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
         cursor: pointer;
       }
 
+      /* Options is visible */
+      :host[visible] .select
+      {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+      }
+
       /* Select text */
       :host .select .text
       {
@@ -62,10 +70,15 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
       {
         display: none;
         position: absolute;
-        top: 22px;
+        top: 20px;
         left: 0px;
         color: var(--jviz-select-color-text) !important;
         background-color: var(--jviz-select-color-background) !important;
+        width: calc(30px + var(--jviz-select-width));
+        height: var(--jviz-select-height);
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        overflow-y: auto;
       }
 
       /* Select is visible */
@@ -128,6 +141,22 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
   {
     //Show/Hide the options
     this.visible = !this.visible;
+
+    //Check if now is visible
+    if(this.visible === true)
+    {
+      //Get the number ov available options
+      var num_options = this.$.options.querySelectorAll('jviz-select-option').length;
+
+      //Get the value
+      var value = (num_options < this.maxOptions) ? num_options * 30 : this.maxOptions * 30;
+
+      //Update the height
+      this.customStyle['--jviz-select-height'] = value + 'px';
+
+      //Update the styles
+      this.updateStyles();
+    }
   };
 
   //Update the select color
