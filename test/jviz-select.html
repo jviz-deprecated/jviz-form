@@ -1,0 +1,32 @@
+<!-- Import testing libs -->
+<script src="../../webcomponentsjs/webcomponents.min.js"></script>
+<script src="../../web-component-tester/browser.js"></script>
+<script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+<!-- Import elements -->
+<link rel="import" href="../jviz-select.html">
+<link rel="import" href="../../test-fixture/test-fixture.html">
+
+<!-- Test element -->
+<test-fixture id="select">
+  <template>
+    <jviz-select id="select">
+
+    </jviz-select>
+  </template>
+</test-fixture>
+
+<!-- Test script -->
+<script>
+  //Initialize the element
+  var el = null;
+
+  //Initialize the test
+  describe('<jviz-select>', function()
+  {
+    //Initialize the select element
+    beforeEach(function(){ el = fixture('select'); });
+
+
+  });
+</script>
