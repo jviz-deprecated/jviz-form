@@ -113,6 +113,13 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     {
       //Add the event listener
       el.addEventListener('mousedown', function(){ return self._option(el); });
+
+      //Check if this option is selected
+      if(el.selected === true)
+      {
+        //Add the value
+        self.value = el.value;
+      }
     });
   };
 
