@@ -7,7 +7,50 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
 <!-- Import elements -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../jviz/jviz.html">
+<link rel="import" href="../jviz-styles/jviz-styles.html">
 
 <!-- Import form elements -->
-<link rel="import" href="./jviz-checkbox.html">
-<link rel="import" href="./jviz-select.html">
+<link rel="import" href="./jviz-form-group.html">
+<link rel="import" href="./jviz-form-title.html">
+<link rel="import" href="./jviz-form-helper.html">
+<link rel="import" href="./jviz-form-rule.html">
+
+<!-- Form element -->
+<dom-module id="jviz-form">
+  <template>
+    <style>
+      :host
+      {
+        --jviz-form--padding: 10px;
+      }
+      :host
+      {
+        display: block;
+        width: calc(100% - 2 * var(--jviz-form--padding));
+        @apply --jviz-font;
+        font-size: var(--jviz-font-size);
+        color: var(--jviz-font-color);
+        padding: var(--jviz-form--padding);
+        border-radius: 5px;
+      }
+      :host[grey]
+      {
+        background-color: var(--jviz-grey);
+      }
+    </style>
+    <content></content>
+  </template>
+</dom-module>
+
+<!-- Form logic -->
+<script>
+  //Initialize the form object
+  var jviz_form = { is: 'jviz-form' };
+
+  //Initialize the form properties
+  jviz_form.properties = {};
+  jviz_form.properties.grey = { type: Boolean, reflectToAttribute: true, value: false };
+
+  //Register the form object
+  Polymer(jviz_form);
+</script>
