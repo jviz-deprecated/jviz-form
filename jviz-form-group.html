@@ -1,0 +1,31 @@
+<!--
+@license
+Copyright (c) 2016 The Jviz Project Authors. All rights reserved.
+The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob/dev/LICENSE
+-->
+
+<!-- Import elements -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../jviz/jviz.html">
+<link rel="import" href="../jviz-styles/jviz-styles.html">
+
+<!-- Form group element -->
+<dom-module id="jviz-form-group">
+  <template>
+    <style>
+      :host
+      {
+        display: block;
+        vertical-align: top;
+        margin-bottom: 15px;
+      }
+    </style>
+    <content></content>
+  </template>
+</dom-module>
+
+<!-- Form group logic -->
+<script>
+  //Register the form group element
+  Polymer({ is: 'jviz-form-group' });
+</script>
