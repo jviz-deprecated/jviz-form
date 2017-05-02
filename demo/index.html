@@ -1,0 +1,32 @@
+<!--
+@license
+Copyright (c) 2016 The Jviz Project Authors. All rights reserved.
+The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob/dev/LICENSE
+-->
+
+<!-- Import form element -->
+<link rel="import" href="../jviz-form.html">
+<link rel="import" href="../../jviz-input/jviz-input.html">
+
+<!-- Style -->
+<style>
+  html { margin: 20px !important; }
+</style>
+
+<!-- Form demo -->
+<jviz-form grey>
+  <jviz-form-group>
+    <jviz-form-title>Title label</jviz-form-title>
+    <jviz-input icon="search" width="100%" color="white"></jviz-input>
+    <jviz-form-helper>Helper label</jviz-form-helper>
+  </jviz-form-group>
+  <jviz-form-rule></jviz-form-rule>
+  <jviz-form-group>
+    <jviz-form-title>Title label</jviz-form-title>
+    <input class="input" type="text" placeholder="Type your text here!">
+    <jviz-form-helper>Helper label</jviz-form-helper>
+    <jviz-form-title>Title label</jviz-form-title>
+    <input class="input" type="text" placeholder="Type your text here!">
+    <jviz-form-helper>Helper label</jviz-form-helper>
+  </jviz-form-group>
+</jviz-form>
