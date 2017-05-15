@@ -20,6 +20,15 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
         margin-top: 5px;
         margin-bottom: 5px;
       }
+      :host .header
+      {
+        display: block;
+        font-weight: bold;
+        font-size: var(--jviz-font-size);
+        font-family: var(--jviz-font-family);
+        color: var(--jviz-font-color);
+        margin-bottom: 5px;
+      }
       :host .item
       {
         display: block;
@@ -36,9 +45,11 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
       :host .item .name
       {
         display: inline-block;
+        width: calc(100% - 24px);
         height: 30px;
         line-height: 30px;
         color: var(--jviz-navy-3);
+        cursor: pointer;
         float: left;
       }
       :host .item .btn
@@ -47,10 +58,13 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
         float: right;
       }
     </style>
-    <template is="dom-repeat" items="{{ data }}" index-as="index">
-      <div class="item" data-index$="{{ index }}" on-tap="_tap">
-        <div class="name">{{ value(index) }}</div>
-        <jviz-btn class="btn" icon="close" color="red" height="24px"></jviz-btn>
+    <template is="dom-if" if="{{ header }}">
+      <div class="header">{{ header }}</div>
+    </template>
+    <template id="list" is="dom-repeat" items="{{ data }}" index-as="index">
+      <div class="item" data-index$="{{ index }}">
+        <div class="name" on-tap="_tap_item">{{ item }}</div>
+        <jviz-btn class="btn" icon="close" color="red" height="24px" on-tap="_tap_remove"></jviz-btn>
       </div>
     </template>
   </template>
@@ -64,19 +78,12 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
   //Form list properties
   jviz_form_list.properties = {};
   jviz_form_list.properties.data = { type: Array, value: [], observer: '_update_data' };
-  jviz_form_list.properties.default = { type: String, reflectToAttribute: true, value: '' };
+  jviz_form_list.properties.header = { type: String, reflectToAttribute: true, value: '' };
 
   //Update the data list
   jviz_form_list._update_data = function()
   {
 
-  };
-
-  //Get the list value
-  jviz_form_list.value = function(index)
-  {
-    //Display the item value
-    return (typeof this.data[index].name === 'undefined') ? this.default : this.data[index].name.toString();
   };
 
   //Add a new object
@@ -92,14 +99,42 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     if(index < 0 || this.data.length <= index){ return; }
 
     //Remove the element from the array
-    return this.data.splice(index, 1)[0];
+    var item = this.data.splice(index, 1);
+
+    //Render the list
+    this.$.list.render();
+
+    //Return the removed item
+    return item[0];
+  };
+
+  //Get the item index
+  jviz_form_list._get_item_index = function(path)
+  {
+    //Read all the paths on the list
+    for(var i = 0; i < path.length; i++)
+    {
+      //Check the dataset index
+      if(typeof path[i].dataset.index !== 'undefined')
+      {
+        //Return the index
+        return parseInt(path[i].dataset.index);
+      }
+    }
+
+    //Default, return not found
+    return -1;
   };
 
   //Tap item
-  jviz_form_list._tap = function(e)
+  jviz_form_list._tap_remove = function(e)
   {
-    //Iterate over all the paths
-    return console.log(e);
+    //Get the item index
+    var index = this._get_item_index(e.path);
+
+    //check for no index
+    if(index === -1){ return; }
+
     //Remove the element
     var el = this.remove(index);
 
