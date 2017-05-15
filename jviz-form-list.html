@@ -63,7 +63,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     </template>
     <template id="list" is="dom-repeat" items="{{ data }}" index-as="index">
       <div class="item" data-index$="{{ index }}">
-        <div class="name" on-tap="_tap_item">{{ item }}</div>
+        <div class="name" on-tap="_tap_item">{{ value(index, data, size) }}</div>
         <jviz-btn class="btn" icon="close" color="red" height="24px" on-tap="_tap_remove"></jviz-btn>
       </div>
     </template>
@@ -77,14 +77,32 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
 
   //Form list properties
   jviz_form_list.properties = {};
-  jviz_form_list.properties.data = { type: Array, value: [] };
+  jviz_form_list.properties.data = { type: Array, value: [], observer: '_update_data' };
+  jviz_form_list.properties.size = { type: Number, value: 0 };
   jviz_form_list.properties.header = { type: String, reflectToAttribute: true, value: '' };
+
+  //Update data observer
+  jviz_form_list._update_data = function()
+  {
+    //Save the number of elements
+    this.size = this.data.length;
+  };
+
+  //Get an element of the list
+  jviz_form_list.value = function(index)
+  {
+    //Return the data value
+    return this.data[index];
+  };
 
   //Add a new object
   jviz_form_list.add = function(item)
   {
     //Add the new item
     this.data.push(item);
+
+    //Save the number of elements
+    this.size = this.data.length;
 
     //Render again the list
     this.$.list.render();
@@ -98,6 +116,9 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
 
     //Remove the element from the array
     var item = this.data.splice(index, 1);
+
+    //Save the number of elements
+    this.size = this.data.length;
 
     //Render the list
     this.$.list.render();
