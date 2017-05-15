@@ -29,4 +29,29 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     <input class="input" type="text" placeholder="Type your text here!">
     <jviz-form-helper>Helper label</jviz-form-helper>
   </jviz-form-group>
+  <jviz-form-group>
+    <jviz-form-list id="test-list" header="Test list"></jviz-form-list>
+  </jviz-form-group>
 </jviz-form>
+
+<!-- Script -->
+<script>
+  //Initialize the elements
+  var el_list = null;
+
+  //Dom ready
+  jviz.dom.ready(function()
+  {
+    //Initialize the list element
+    el_list = jviz.dom.id('test-list');
+
+    //Add the list elements
+    el_list.data = [ 'Element 1', 'Element 2', 'Element 3' ];
+
+    //Add the remove item event listener
+    el_list.addEventListener('item:remove', function(e){ console.log('Removed: ' + e.detail.item); });
+
+    //Add the click item event listener
+    el_list.addEventListener('item:click', function(e){ console.log('Clicked: ' + e.detail.item); });
+  });
+</script>
