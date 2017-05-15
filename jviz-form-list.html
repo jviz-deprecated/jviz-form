@@ -127,6 +127,19 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
   };
 
   //Tap item
+  jviz_form_list._tap_item = function(e)
+  {
+    //Get the item index
+    var index = this._get_item_index(e.path);
+
+    //check for no index
+    if(index === -1){ return; }
+
+    //Emit the event
+    this.fire('item:click', { item: this.data[index], index: index });
+  };
+
+  //Tap remove item
   jviz_form_list._tap_remove = function(e)
   {
     //Get the item index
