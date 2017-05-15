@@ -8,7 +8,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../jviz/jviz.html">
 <link rel="import" href="../jviz-styles/jviz-styles.html">
-<link rel="import" href="../jviz-icons/jviz-icons.html">
+<link rel="import" href="../jviz-btn/jviz-btn.html">
 
 <!-- Form list element -->
 <dom-module id="jviz-form-list">
@@ -20,9 +20,38 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
         margin-top: 5px;
         margin-bottom: 5px;
       }
+      :host .item
+      {
+        display: block;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+        border-bottom: var(--jviz-grey-1) solid 1px;
+      }
+      :host .item:last-of-type
+      {
+        border-bottom-width: 0px;
+      }
+      :host .item .name
+      {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        color: var(--jviz-navy-3);
+        float: left;
+      }
+      :host .item .btn
+      {
+        margin-top: 3px;
+        float: right;
+      }
     </style>
     <template is="dom-repeat" items="{{ data }}" index-as="index">
-
+      <div class="item" data-index$="{{ index }}" on-tap="_tap">
+        <div class="name">{{ value(index) }}</div>
+        <jviz-btn class="btn" icon="close" color="red" height="24px"></jviz-btn>
+      </div>
     </template>
   </template>
 </dom-module>
@@ -66,9 +95,11 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     return this.data.splice(index, 1)[0];
   };
 
-  //Tap on remove icon
-  jviz_form_list._tap_remove = function(index)
+  //Tap item
+  jviz_form_list._tap = function(e)
   {
+    //Iterate over all the paths
+    return console.log(e);
     //Remove the element
     var el = this.remove(index);
 
