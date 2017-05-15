@@ -77,19 +77,17 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
 
   //Form list properties
   jviz_form_list.properties = {};
-  jviz_form_list.properties.data = { type: Array, value: [], observer: '_update_data' };
+  jviz_form_list.properties.data = { type: Array, value: [] };
   jviz_form_list.properties.header = { type: String, reflectToAttribute: true, value: '' };
-
-  //Update the data list
-  jviz_form_list._update_data = function()
-  {
-
-  };
 
   //Add a new object
   jviz_form_list.add = function(item)
   {
-    //Check the item value
+    //Add the new item
+    this.data.push(item);
+
+    //Render again the list
+    this.$.list.render();
   };
 
   //Remove an element
