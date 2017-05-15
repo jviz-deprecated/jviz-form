@@ -1,0 +1,81 @@
+<!--
+@license
+Copyright (c) 2016 The Jviz Project Authors. All rights reserved.
+The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob/dev/LICENSE
+-->
+
+<!-- Import elements -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../jviz/jviz.html">
+<link rel="import" href="../jviz-styles/jviz-styles.html">
+<link rel="import" href="../jviz-icons/jviz-icons.html">
+
+<!-- Form list element -->
+<dom-module id="jviz-form-list">
+  <template>
+    <style>
+      :host
+      {
+        display: block;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    </style>
+    <template is="dom-repeat" items="{{ data }}" index-as="index">
+
+    </template>
+  </template>
+</dom-module>
+
+<!-- Form list logic -->
+<script>
+  //Initialize the form list element
+  var jviz_form_list = { is: 'jviz-form-list' };
+
+  //Form list properties
+  jviz_form_list.properties = {};
+  jviz_form_list.properties.data = { type: Array, value: [], observer: '_update_data' };
+  jviz_form_list.properties.default = { type: String, reflectToAttribute: true, value: '' };
+
+  //Update the data list
+  jviz_form_list._update_data = function()
+  {
+
+  };
+
+  //Get the list value
+  jviz_form_list.value = function(index)
+  {
+    //Display the item value
+    return (typeof this.data[index].name === 'undefined') ? this.default : this.data[index].name.toString();
+  };
+
+  //Add a new object
+  jviz_form_list.add = function(item)
+  {
+    //Check the item value
+  };
+
+  //Remove an element
+  jviz_form_list.remove = function(index)
+  {
+    //Check the index
+    if(index < 0 || this.data.length <= index){ return; }
+
+    //Remove the element from the array
+    return this.data.splice(index, 1)[0];
+  };
+
+  //Tap on remove icon
+  jviz_form_list._tap_remove = function(index)
+  {
+    //Remove the element
+    var el = this.remove(index);
+
+    //Emit the removed event
+    this.fire('item:removed', { item: el, index: index });
+  };
+
+  //Register the form list element
+  Polymer(jviz_form_list);
+</script>
