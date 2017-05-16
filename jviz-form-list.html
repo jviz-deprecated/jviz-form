@@ -47,9 +47,14 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
         width: calc(100% - 20px);
         height: 20px;
         line-height: 20px;
-        color: var(--jviz-navy-3);
+        color: var(--jviz-navy-4);
         cursor: pointer;
         float: left;
+        transition: all 0.3s;
+      }
+      :host .item .name:hover
+      {
+        color: var(--jviz-navy-2);
       }
       :host .item .btn
       {
