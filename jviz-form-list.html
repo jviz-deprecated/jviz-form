@@ -137,6 +137,13 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     return item[0];
   };
 
+  //Reload the element
+  jviz_form_list.reload = function()
+  {
+    //Update the data
+    this._update_data();
+  };
+
   //Get the item index
   jviz_form_list._get_item_index = function(path)
   {
