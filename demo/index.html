@@ -45,6 +45,9 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
     //Initialize the list element
     el_list = jviz.dom.id('test-list');
 
+    //Parse method
+    el_list.parse = function(el, index){ return 'Item ' + index + ': ' + el; };
+
     //Add the list elements
     el_list.data = [ 'Element 1', 'Element 2', 'Element 3' ];
 
