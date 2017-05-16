@@ -40,6 +40,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
         width: 100%;
         height: 20px;
         line-height: 20px;
+        color: var(--jviz-form-list--color);
         padding: 5px;
         margin-bottom: 5px;
         background-color: var(--jviz-form-list--background);
@@ -77,9 +78,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
       </div>
     </template>
     <template is="dom-if" if="{{ !hasData }}">
-      <div class="item" align="center">
-        <div class="name">{{ emptyText }}</div>
-      </div>
+      <div class="item" align="center">{{ emptyText }}</div>
     </template>
   </template>
 </dom-module>
