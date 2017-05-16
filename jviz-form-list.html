@@ -80,6 +80,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
   jviz_form_list.properties.data = { type: Array, value: [], observer: '_update_data' };
   jviz_form_list.properties.size = { type: Number, value: 0 };
   jviz_form_list.properties.header = { type: String, reflectToAttribute: true, value: '' };
+  jviz_form_list.properties.parser = { type: Function };
 
   //Update data observer
   jviz_form_list._update_data = function()
@@ -92,7 +93,7 @@ The Jviz Project is under the MIT License. See https://github.com/jviz/jviz/blob
   jviz_form_list.value = function(index)
   {
     //Return the data value
-    return this.data[index];
+    return (typeof this.parse === 'function') ? this.parse(this.data[index], index) : this.data[index].toString();
   };
 
   //Add a new object
